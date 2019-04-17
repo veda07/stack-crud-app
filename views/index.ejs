@@ -7,6 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Sushi</h1>
+    <h1>Sushi Index Page</h1>
+    <ul>
+        <% for(let i =0; i < sushi.length; i++){%>
+            <li>
+                <a href="/sushi/<%=sushi[i].id%>"><%sushi[i].name; %></a>
+            </li>
+        <%}%> 
+      </ul>
 </body>
 </html>
