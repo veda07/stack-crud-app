@@ -2,6 +2,8 @@ const express = require('express');
 const router  = express.Router();
 const Sushi  = require('../models/sushi');
 
+
+
 // INDEX ROUTE
 router.get('/', (req, res) => {
     Sushi.find({}, (err, allSushi)=>{
@@ -9,7 +11,7 @@ router.get('/', (req, res) => {
             console.log(err)
         }else{
             console.log(allSushi);
-            res.render('index.ejs')
+            res.render('index.ejs', {sushi: allSushi})
         }
     }
     )
@@ -37,9 +39,21 @@ router.get('/new', (req, res) => {
     res.render('new.ejs')
 })
 
+// SHOW ROUTE
+router.get('/:id', (req, res)=>{
+    Sushi.findOne({_id: req.params.id}, ( err, foundSushi) =>{
+    if (err){
+        res.send(err);
+    } else {
+        console.log(foundSushi);
+        if(foundSushi != null){
+            res.render('show.ejs', {sushi: foundSushi});
 
-
-
-
+        } else {
+            res.send('no sushi found');
+        }
+    }
+ })
+}); 
 
 module.exports = router; 
